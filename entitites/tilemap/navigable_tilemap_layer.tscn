@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8iduqhhedq76"]
+
+[ext_resource type="Script" path="res://entitites/tilemap/navigable_tilemap_layer.gd" id="1_8pv0e"]
+
+[node name="NavigableTilemapLayer" type="TileMapLayer"]
+script = ExtResource("1_8pv0e")

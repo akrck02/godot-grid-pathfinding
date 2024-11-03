@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://c60j1gjpwordy"]
+
+[ext_resource type="Script" path="res://ui/ui.gd" id="1_kvxl6"]
+
+[sub_resource type="SystemFont" id="SystemFont_316uh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_htv1k"]
+font = SubResource("SystemFont_316uh")
+font_size = 23
+font_color = Color(1, 1, 1, 0.560784)
+outline_size = 4
+outline_color = Color(0, 0, 0, 0.52549)
+
+[node name="ui" type="CanvasLayer"]
+script = ExtResource("1_kvxl6")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="PlayerCoordinates" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+label_settings = SubResource("LabelSettings_htv1k")
+
+[node name="MouseCoordinates" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+label_settings = SubResource("LabelSettings_htv1k")
