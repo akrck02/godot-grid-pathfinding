@@ -42,4 +42,4 @@ ui_reset={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=3
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+environment/defaults/default_clear_color=Color(0.113725, 0.121569, 0.129412, 1)
