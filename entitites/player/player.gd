@@ -25,7 +25,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		steps = navigation.get_steps(tilemap, current_coordinates, new_coordinates)
 		print("Steps from %s to %s" % [current_coordinates, new_coordinates])
 		print("%s\n" %steps)
-
+		
 		_draw_line(debug, steps)
 
 func _process(_delta: float) -> void:

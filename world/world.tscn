@@ -11,8 +11,9 @@
 z_index = 999
 
 [node name="2" type="TileMapLayer" parent="."]
+z_index = 2
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAPAAQAAQADAAAAAAAPAAUAAQADAAAAAAA=")
+tile_map_data = PackedByteArray("AAAPAAQAAQADAAAAAAAPAAUAAQADAAAAAAAWAAQAAQADAAAAAAAWAAUAAQADAAAAAAASAAIAAQADAAAAAAATAAIAAQADAAAAAAA=")
 tile_set = ExtResource("1_rkewv")
 
 [node name="1" type="TileMapLayer" parent="." node_paths=PackedStringArray("layers", "debug_canvas_layer")]

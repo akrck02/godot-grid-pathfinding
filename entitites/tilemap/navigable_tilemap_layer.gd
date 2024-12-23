@@ -34,11 +34,11 @@ func _ready() -> void:
 
 	layers.append(self)
 	layers.sort_custom(sort_by_name)
-	
+
 	grid.cell_size = cell_size
 	grid.region = get_used_rectangle()
 	grid.update()
-	
+
 	set_current_walls()
 
 
@@ -50,19 +50,26 @@ func sort_by_name(a : Node, b : Node):
 ## Update the walls on the grid
 func set_current_walls():
 	var map = {}
-	for layer in layers:
-		for cell in layer.get_used_cells():
+	for layer: TileMapLayer in layers:
+		for cell : Vector2 in layer.get_used_cells():
+			var cell_index = _vectorToString(cell)
 			
-			if null == map.find_key(cell):
+			if not map.has(cell_index):
 				var data = layer.get_cell_tile_data(cell)
-				map[cell] = data != null and data.get_custom_data(TYPE_PROPERTY_NAME) == WALL_TYPE
-				
-				print("setting solid point on %s" % cell)
-				grid.set_point_solid(cell, map[cell])
-				
-				if map[cell] == true: layer.set_cell(cell, 1, Vector2(1,0))
-				# else: layer.set_cell(cell,1, Vector2(0,0))
+				map[cell_index] = data != null and data.get_custom_data(TYPE_PROPERTY_NAME) == WALL_TYPE
+				_draw_debug_colors_for_cell(layer, cell, map[cell_index])
+				grid.set_point_solid(cell, map[cell_index])
 
+func _vectorToString(vec : Vector2) -> String: 
+	return "{x},{y}".format({"x":vec.x, "y":vec.y})
+
+
+## Draw debug colors for cells 
+func _draw_debug_colors_for_cell(layer : TileMapLayer, cell : Vector2, solid : bool):
+	if solid == true: 
+		layer.set_cell(cell, 1, Vector2(1,0))
+	# else: 
+	#	layer.set_cell(cell,1, Vector2(0,0))
 
 ## Get the used rectangle of the tilemap
 func get_used_rectangle() -> Rect2i:
@@ -78,7 +85,7 @@ func get_used_rectangle() -> Rect2i:
 			if cell.y > max_position.y : max_position.y = cell.y
 
 	var size : Vector2 = max_position - min_position
-	return Rect2i(min_position, Vector2.ONE + size )
+	return Rect2i(min_position, Vector2.ONE + size)
 
 
 ## calculate cell index

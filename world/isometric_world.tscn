@@ -33,7 +33,7 @@ sources/1 = SubResource("TileSetAtlasSource_dw6oa")
 [node name="Debug" type="Node2D" parent="." groups=["debug"]]
 
 [node name="2" type="TileMapLayer" parent="." node_paths=PackedStringArray("layers", "debug_canvas_layer")]
-z_index = 1
+z_index = 2
 y_sort_enabled = true
 tile_set = SubResource("TileSet_ing2n")
 script = ExtResource("2_koudd")
