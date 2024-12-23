@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dnqfl561jtvxq"]
+[gd_scene load_steps=4 format=3 uid="uid://dnqfl561jtvxq"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_tynhs"]
+[ext_resource type="StyleBox" uid="uid://keirerpykxsa" path="res://materials/button.tres" id="2_ku6pd"]
 
 [sub_resource type="SystemFont" id="SystemFont_n81mm"]
 
@@ -25,25 +26,39 @@ alignment = 1
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = SubResource("SystemFont_n81mm")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 67
 text = "PATHFINDING"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 25
+size_flags_horizontal = 4
+theme_override_constants/margin_top = 62
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 50
 alignment = 1
 
 [node name="2D" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-text = "2D classic"
+theme_override_constants/icon_max_width = 48
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = ExtResource("2_ku6pd")
+theme_override_styles/hover_pressed = ExtResource("2_ku6pd")
+theme_override_styles/hover = ExtResource("2_ku6pd")
+theme_override_styles/pressed = ExtResource("2_ku6pd")
+theme_override_styles/normal = ExtResource("2_ku6pd")
+text = "Top down 2D"
 
 [node name="Isometric" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-text = "2D isometric"
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = ExtResource("2_ku6pd")
+theme_override_styles/hover = ExtResource("2_ku6pd")
+theme_override_styles/pressed = ExtResource("2_ku6pd")
+theme_override_styles/normal = ExtResource("2_ku6pd")
+text = "Isometric 2D"
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/2D" to="." method="_on_d_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Isometric" to="." method="_on_isometric_pressed"]

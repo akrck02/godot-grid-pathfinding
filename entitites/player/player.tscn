@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bvj64n2fupnl7"]
+[gd_scene load_steps=5 format=3 uid="uid://bvj64n2fupnl7"]
 
 [ext_resource type="Texture2D" uid="uid://byhwyds0w6ds2" path="res://sprites/NPC_test.png" id="1_d0x3f"]
 [ext_resource type="Script" path="res://entitites/player/player.gd" id="1_yxqiv"]
-[ext_resource type="Texture2D" uid="uid://xiq44o582kyb" path="res://sprites/Small-8-Direction-Characters_by_AxulArt.png" id="2_xq7ow"]
 [ext_resource type="PackedScene" uid="uid://3jcsyruvq6x0" path="res://mecanics/navigation.tscn" id="3_x4sw3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_52ogd"]
@@ -12,23 +11,15 @@ height = 20.0
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_yxqiv")
 
-[node name="Sprite2DISO" type="Sprite2D" parent="."]
-position = Vector2(8, -4)
-texture = ExtResource("2_xq7ow")
-hframes = 8
-vframes = 12
-frame = 55
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(8, -9)
+position = Vector2(8, -1)
 texture = ExtResource("1_d0x3f")
 hframes = 4
 vframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 show_behind_parent = true
-position = Vector2(8, -3)
+position = Vector2(8, -1)
 shape = SubResource("CapsuleShape2D_52ogd")
 
 [node name="Navigation" parent="." instance=ExtResource("3_x4sw3")]

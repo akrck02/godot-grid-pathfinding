@@ -17,10 +17,11 @@ config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=512
-window/size/viewport_height=512
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/stretch/mode="canvas_items"
-window/stretch/aspect="keep_height"
+window/stretch/aspect="expand"
+window/stretch/scale_mode="integer"
 
 [global_group]
 
@@ -43,3 +44,5 @@ ui_reset={
 
 textures/canvas_textures/default_texture_filter=3
 environment/defaults/default_clear_color=Color(0.113725, 0.121569, 0.129412, 1)
+anti_aliasing/quality/msaa_2d=1
+anti_aliasing/quality/screen_space_aa=1

@@ -2,6 +2,8 @@ extends CanvasLayer
 
 @onready var player_coordinates_label : Label = $MarginContainer/VBoxContainer/PlayerCoordinates
 @onready var mouse_coordinates_label : Label = $MarginContainer/VBoxContainer/MouseCoordinates
+@onready var region_label : Label = $MarginContainer/VBoxContainer/Region
+
 @export var tilemap_layer : NavigableTilemapLayer
 @export var player : Player
 
@@ -21,4 +23,9 @@ func update_mouse_data(global_mouse_position : Vector2):
 func _process(_delta: float) -> void:
 	var coordinates : Vector2 = player.get_coordinates()
 	player_coordinates_label.text = "Player: x: {x} , y: {y}".format({"x" : coordinates.x, "y": coordinates.y})
+	
+	region_label.text = "Region position: {position} size: {size}".format({
+		"position": player.tilemap.grid.region.position,
+		"size": player.tilemap.grid.region.size
+	})
 	

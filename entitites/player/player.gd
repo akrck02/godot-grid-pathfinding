@@ -2,8 +2,11 @@ class_name Player
 extends CharacterBody2D
 
 @export var tilemap : NavigableTilemapLayer = null;
+
 @onready var navigation : Navigation = $Navigation
 @onready var timer : Timer = $Timer
+@onready var sprite : Sprite2D = $Sprite2D
+
 var tween : Tween
 var moving : bool = false
 var steps : PackedVector2Array = []
@@ -38,7 +41,7 @@ func _process(_delta: float) -> void:
 func _draw_line(parent : Node2D, draw_steps: PackedVector2Array) -> void:
 	var line : Line2D = Line2D.new()
 	for point in draw_steps:
-		line.add_point(Vector2(point.x, point.y))
+		line.add_point(Vector2(point.x + tilemap.cell_size.x/2.00, point.y + tilemap.cell_size.y/2.00))
 
 	line.default_color = Color.REBECCA_PURPLE
 	line.default_color.a = 1

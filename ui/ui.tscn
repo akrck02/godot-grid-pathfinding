@@ -39,3 +39,8 @@ label_settings = SubResource("LabelSettings_htv1k")
 layout_mode = 2
 size_flags_vertical = 10
 label_settings = SubResource("LabelSettings_htv1k")
+
+[node name="Region" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+label_settings = SubResource("LabelSettings_htv1k")

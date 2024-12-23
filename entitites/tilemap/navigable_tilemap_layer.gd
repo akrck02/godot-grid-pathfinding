@@ -8,23 +8,9 @@ const DEFAULT_SPRITE_SIZE : int = 16
 const WALL_TYPE : int = 1
 const TYPE_PROPERTY_NAME : String = "type"
 
-## Enumeration for the tilemap modes
-enum TilemapMode {
-	SQUARE,
-	ISOMETRIC_DOWN,
-	ISOMETRIC_RIGHT
-}
-
-## Enumeration for diagonal movement policy
-enum DiagonalPolicy {
-	NEVER,
-	ALWAYS,
-	ONLY_IF_NO_OBSTACLES
-}
-
 @export_category("Configuration")
-@export var tilemap_mode : TilemapMode = TilemapMode.SQUARE
-@export var diagonal_policy : DiagonalPolicy = DiagonalPolicy.NEVER
+@export var tilemap_mode : TilemapSettings.Mode = TilemapSettings.Mode.SQUARE
+@export var diagonal_policy : TilemapSettings.DiagonalPolicy =  TilemapSettings.DiagonalPolicy.NEVER
 @export var cell_size : Vector2i = Vector2i(DEFAULT_SPRITE_SIZE, DEFAULT_SPRITE_SIZE)
 @export var layers : Array[TileMapLayer] = []
 
@@ -33,35 +19,49 @@ enum DiagonalPolicy {
 
 var grid : AStarGrid2D = AStarGrid2D.new()
 
+## function to execute when tilemap layer is instantiated
 func _ready() -> void:
 
 	match tilemap_mode:
-		TilemapMode.SQUARE: grid.cell_shape = AStarGrid2D.CELL_SHAPE_SQUARE
-		TilemapMode.ISOMETRIC_DOWN: grid.cell_shape = AStarGrid2D.CELL_SHAPE_ISOMETRIC_DOWN
-		TilemapMode.ISOMETRIC_RIGHT: grid.cell_shape = AStarGrid2D.CELL_SHAPE_ISOMETRIC_RIGHT
+		TilemapSettings.Mode.SQUARE: grid.cell_shape = AStarGrid2D.CELL_SHAPE_SQUARE
+		TilemapSettings.Mode.ISOMETRIC_DOWN: grid.cell_shape = AStarGrid2D.CELL_SHAPE_ISOMETRIC_DOWN
+		TilemapSettings.Mode.ISOMETRIC_RIGHT: grid.cell_shape = AStarGrid2D.CELL_SHAPE_ISOMETRIC_RIGHT
 
 	match diagonal_policy:
-		DiagonalPolicy.NEVER: grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
-		DiagonalPolicy.ALWAYS: grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ALWAYS
-		DiagonalPolicy.ONLY_IF_NO_OBSTACLES: grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
+		TilemapSettings.DiagonalPolicy.NEVER: grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
+		TilemapSettings.DiagonalPolicy.ALWAYS: grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ALWAYS
+		TilemapSettings.DiagonalPolicy.ONLY_IF_NO_OBSTACLES: grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
 
 	layers.append(self)
+	layers.sort_custom(sort_by_name)
+	
 	grid.cell_size = cell_size
 	grid.region = get_used_rectangle()
 	grid.update()
+	
 	set_current_walls()
+
+
+## Sort the current layers by index
+func sort_by_name(a : Node, b : Node):
+	return a.name.naturalnocasecmp_to(b.name) > 0
 
 
 ## Update the walls on the grid
 func set_current_walls():
-
+	var map = {}
 	for layer in layers:
 		for cell in layer.get_used_cells():
-			var data = layer.get_cell_tile_data(cell)
-			if data != null and data.get_custom_data(TYPE_PROPERTY_NAME) == WALL_TYPE:
-				print("Setting wall at: %s, %s" %[cell.x , cell.y])
-				grid.set_point_solid(cell, true)
-				debug_canvas_layer.set_cell(cell,2,Vector2(4,5),0)
+			
+			if null == map.find_key(cell):
+				var data = layer.get_cell_tile_data(cell)
+				map[cell] = data != null and data.get_custom_data(TYPE_PROPERTY_NAME) == WALL_TYPE
+				
+				print("setting solid point on %s" % cell)
+				grid.set_point_solid(cell, map[cell])
+				
+				if map[cell] == true: layer.set_cell(cell, 1, Vector2(1,0))
+				# else: layer.set_cell(cell,1, Vector2(0,0))
 
 
 ## Get the used rectangle of the tilemap
@@ -75,7 +75,7 @@ func get_used_rectangle() -> Rect2i:
 			if cell.x < min_position.x : min_position.x = cell.x
 			if cell.y < min_position.y : min_position.y = cell.y
 			if cell.x > max_position.x : max_position.x = cell.x
-			if cell.y > max_position.y : max_position.y = cell.x
+			if cell.y > max_position.y : max_position.y = cell.y
 
 	var size : Vector2 = max_position - min_position
 	return Rect2i(min_position, Vector2.ONE + size )
