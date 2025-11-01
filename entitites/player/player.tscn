@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bvj64n2fupnl7"]
 
 [ext_resource type="Texture2D" uid="uid://byhwyds0w6ds2" path="res://sprites/NPC_test.png" id="1_d0x3f"]
-[ext_resource type="Script" path="res://entitites/player/player.gd" id="1_yxqiv"]
+[ext_resource type="Script" uid="uid://b8c8qh1c7s22k" path="res://entitites/player/player.gd" id="1_yxqiv"]
 [ext_resource type="PackedScene" uid="uid://3jcsyruvq6x0" path="res://mecanics/navigation.tscn" id="3_x4sw3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_52ogd"]

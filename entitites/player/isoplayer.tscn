@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4x6vqsj1wl0f"]
+
+[ext_resource type="Script" uid="uid://b8c8qh1c7s22k" path="res://entitites/player/player.gd" id="1_r67md"]
+[ext_resource type="Texture2D" uid="uid://dj2eg0nc0rfc6" path="res://sprites/Isometric2D.png" id="3_wfkw4"]
+[ext_resource type="PackedScene" uid="uid://3jcsyruvq6x0" path="res://mecanics/navigation.tscn" id="4_0syc1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_52ogd"]
+radius = 16.0
+height = 34.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_r67md")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("3_wfkw4")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+show_behind_parent = true
+position = Vector2(0, -9)
+shape = SubResource("CapsuleShape2D_52ogd")
+
+[node name="Navigation" parent="." instance=ExtResource("4_0syc1")]
+
+[node name="Timer" type="Timer" parent="."]
